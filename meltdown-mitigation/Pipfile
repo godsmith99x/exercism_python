@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytest = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-testmon = "*"
+pytest-watch = "*"
 
 [requires]
 python_version = "3.10"
