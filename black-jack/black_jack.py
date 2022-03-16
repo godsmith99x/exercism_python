@@ -4,6 +4,22 @@ How to play blackjack:    https://bicyclecards.com/how-to-play/blackjack/
 "Standard" playing cards: https://en.wikipedia.org/wiki/Standard_52-card_deck
 """
 
+deck = {
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "7": 7,
+    "8": 8,
+    "9": 9,
+    "10": 10,
+    "K": 10,
+    "Q": 10,
+    "J": 10,
+    "A": 1,
+}
+
 
 def value_of_card(card):
     """Determine the scoring value of a card.
@@ -12,7 +28,7 @@ def value_of_card(card):
     :return: int - value of a given card. 'J', 'Q', 'K' = 10; 'A' = 1; numerical value otherwise.
     """
 
-    pass
+    return deck.get(card)
 
 
 def higher_card(card_one, card_two):
@@ -22,7 +38,13 @@ def higher_card(card_one, card_two):
     :return: higher value card - str. Tuple of both cards if they are of equal value.
     """
 
-    pass
+    if value_of_card(card_one) == value_of_card(card_two):
+        return (card_one, card_two)
+    elif value_of_card(card_one) > value_of_card(card_two):
+        # Function will break if either card is None
+        return card_one
+    else:
+        return card_two
 
 
 def value_of_ace(card_one, card_two):
@@ -34,7 +56,18 @@ def value_of_ace(card_one, card_two):
     :return: int - value of the upcoming ace card (either 1 or 11).
     """
 
-    pass
+    match (card_one, card_two):
+        case (card_one, "A" | "J" | "Q" | "K" | "10"):
+            return 1
+        case ("A" | "J" | "Q" | "K" | "10", card_two):
+            return 1
+        case _:
+            hand_value = value_of_card(card_one) + value_of_card(card_two)
+
+            if hand_value > 10:
+                return 1
+            else:
+                return 11
 
 
 def is_blackjack(card_one, card_two):
@@ -44,7 +77,13 @@ def is_blackjack(card_one, card_two):
     :return: bool - if the hand is a blackjack (two cards worth 21).
     """
 
-    pass
+    match (card_one, card_two):
+        case ("A", "J" | "Q" | "K" | "10"):
+            return True
+        case ("J" | "Q" | "K" | "10", "A"):
+            return True
+        case _:
+            return False
 
 
 def can_split_pairs(card_one, card_two):
@@ -54,7 +93,10 @@ def can_split_pairs(card_one, card_two):
     :return: bool - if the hand can be split into two pairs (i.e. cards are of the same value).
     """
 
-    pass
+    if value_of_card(card_one) == value_of_card(card_two):
+        return True
+    else:
+        return False
 
 
 def can_double_down(card_one, card_two):
@@ -63,5 +105,16 @@ def can_double_down(card_one, card_two):
     :param card_one, card_two: str - first and second cards in hand.
     :return: bool - if the hand can be doubled down (i.e. totals 9, 10 or 11 points).
     """
+    match (card_one, card_two):
+        case ("A", "9" | "10" | "J" | "Q" | "K"):
+            return True
+        case ("9" | "10" | "J" | "Q" | "K", "A"):
+            return True
+        case _:
 
-    pass
+            hand_value = value_of_card(card_one) + value_of_card(card_two)
+
+            if hand_value >= 9 and hand_value <= 11:
+                return True
+            else:
+                return False
