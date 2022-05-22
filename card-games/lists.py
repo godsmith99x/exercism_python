@@ -35,10 +35,7 @@ def list_contains_round(rounds, number):
     :return: bool - was the round played?
     """
 
-    if number in rounds:
-        return True
-    else:
-        return False
+    return bool(number in rounds)
 
 
 def card_average(hand):
@@ -62,11 +59,7 @@ def approx_average_is_average(hand):
     approx_avg = mean([hand[0], hand[-1]])
     middle_card = median(hand)
 
-    if approx_avg == true_avg or middle_card == true_avg:
-        return True
-    else:
-        return False
-
+    return bool(approx_avg == true_avg or middle_card == true_avg)
 
 
 def average_even_is_average_odd(hand):
@@ -78,10 +71,7 @@ def average_even_is_average_odd(hand):
     odd_list = hand[::2]
     even_list = hand[1::2]
 
-    if mean(odd_list) == mean(even_list):
-        return True
-    else:
-        return False
+    return bool(mean(odd_list) == mean(even_list))
 
 
 def maybe_double_last(hand):
