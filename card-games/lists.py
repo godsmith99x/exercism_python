@@ -10,8 +10,8 @@ def get_rounds(number):
     :param number: int - current round number.
     :return: list - current round and the two that follow.
     """
-
-    pass
+    if isinstance(number, int):
+        return [number, number + 1, number + 2]
 
 
 def concatenate_rounds(rounds_1, rounds_2):
@@ -22,7 +22,7 @@ def concatenate_rounds(rounds_1, rounds_2):
     :return: list - all rounds played.
     """
 
-    pass
+    return rounds_1 + rounds_2
 
 
 def list_contains_round(rounds, number):
@@ -33,7 +33,10 @@ def list_contains_round(rounds, number):
     :return: bool - was the round played?
     """
 
-    pass
+    if number in rounds:
+        return True
+    else:
+        return False
 
 
 def card_average(hand):
