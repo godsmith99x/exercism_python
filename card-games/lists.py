@@ -59,7 +59,7 @@ def approx_average_is_average(hand):
     approx_avg = mean([hand[0], hand[-1]])
     middle_card = median(hand)
 
-    return bool(approx_avg == true_avg or middle_card == true_avg)
+    return bool(true_avg in (approx_avg, middle_card))
 
 
 def average_even_is_average_odd(hand):
@@ -82,5 +82,4 @@ def maybe_double_last(hand):
     """
     if hand[-1] == 11:
         return hand[0:-1] + [22]
-    else:
-        return hand
+    return hand
