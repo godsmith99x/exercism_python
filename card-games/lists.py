@@ -1,3 +1,5 @@
+from statistics import mean, median
+
 """Functions for tracking poker hands and assorted card tasks.
 
 Python list documentation: https://docs.python.org/3/tutorial/datastructures.html
@@ -46,7 +48,7 @@ def card_average(hand):
     :return: float - average value of the cards in the hand.
     """
 
-    pass
+    return mean(hand)
 
 
 def approx_average_is_average(hand):
@@ -56,7 +58,15 @@ def approx_average_is_average(hand):
     :return: bool - does one of the approximate averages equal the `true average`?
     """
 
-    pass
+    true_avg = mean(hand)
+    approx_avg = mean([hand[0], hand[-1]])
+    middle_card = median(hand)
+
+    if approx_avg == true_avg or middle_card == true_avg:
+        return True
+    else:
+        return False
+
 
 
 def average_even_is_average_odd(hand):
@@ -65,8 +75,13 @@ def average_even_is_average_odd(hand):
     :param hand: list - cards in hand.
     :return: bool - are even and odd averages equal?
     """
+    odd_list = hand[::2]
+    even_list = hand[1::2]
 
-    pass
+    if mean(odd_list) == mean(even_list):
+        return True
+    else:
+        return False
 
 
 def maybe_double_last(hand):
@@ -75,5 +90,7 @@ def maybe_double_last(hand):
     :param hand: list - cards in hand.
     :return: list - hand with Jacks (if present) value doubled.
     """
-
-    pass
+    if hand[-1] == 11:
+        return hand[0:-1] + [22]
+    else:
+        return hand
